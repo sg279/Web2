@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- simple WebSockets chat client -->
+
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="dir_list.css" type="text/css" />
+<script src="client.js"></script>
+<title>File browser</title>
+
+</head>
+
+<body>
+  <h1>File browser</h1>
+  <button onclick="goBack()" type="button">Back</button>
+  <input type = "file" id="file">
+  <button onclick="upload()" type="button">Upload</button>
+  <hr>
+  <div id="browser"></div>
+  <hr>
+  <!-- The checkboxes that allow the user to hide certain columns -->
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "type">type
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "size">size
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "atime">atime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "mtime">mtime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "ctime">ctime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "birthtime">birthtime
+</body>
+
+</html>

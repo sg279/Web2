@@ -1,0 +1,78 @@
+/*
+ * CS2003 Web2 Practical, Example CSS
+ * Saleem Bhatti, Oct 2018
+ * Run this to generate the example web-page.
+ */
+
+
+dirinfo {
+  display: inline-block;
+}
+
+server {
+  display: inline-block;
+  color: blue;
+}
+
+server::before {
+  content: "server: ";
+}
+
+directoryname {
+  display: inline-block;
+  color: green;
+}
+
+directoryname::before {
+  content: "directory: ";
+}
+
+files {
+  display: table;
+  border-collapse: collapse;
+}
+
+fileinfo {
+  padding: 0.25rem;
+  display: table-row;
+}
+
+fileinfo[type="directory"]:hover > filename {
+  color: white;
+  background-color: blue;
+}
+
+fileinfo[type="directory"] > filename {
+  background-color: lightcyan;
+}
+
+fileinfo[type="directory"] > filename::after {
+  content: "/";
+}
+
+fileinfo[type="headings"]{
+  color: white;
+  background-color:green;
+}
+
+.heading:hover{
+  color: white;
+  background-color: blue !important;
+}
+
+filename, size, type, atime, ctime, mtime, birthtime {
+  padding: 1rem;
+  display: table-cell;
+}
+
+filename {
+  text-align: left;
+}
+
+size {
+  text-align: right;
+}
+
+type, atime, ctime, mtime, birthtime {
+  text-align: center;
+}

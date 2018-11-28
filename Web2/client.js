@@ -109,10 +109,15 @@ function sort(key){
 
 function upload(){
   let fileReader = new FileReader();
-  let location = document.getElementById('directory');
-  let file = document.getElementById('file').file[0];
+  let location = document.getElementById('directory').innerText;
+  let file = document.getElementById('file').files[0];
   let uploadStream = fileReader.readAsBinaryString(file);
-  ws.send("{\"request\":\"upload\", \"name\":\""+file.name+"\", \"content\":\""+uploadStream+"\", \"location\":\""+location+"\"}")
+  fileReader.onload=function(e){
+    let content = e.target.result;
+    let message = "{\"request\":\"upload\", \"name\":\""+file.name+"\", \"content\":\""+content+"\", \"location\":\""+location+"\"}"
+    console.log(message);
+    ws.send(message)
+  }
 }
 
 function
