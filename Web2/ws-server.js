@@ -98,6 +98,11 @@ wsServer.on("connection", function(ws) {
           let m = dirInfo;
           ws.send("{\"response\":\"dirinfo\",\"info\":"+JSON.stringify(m)+"}");
         }
+      }
+      //If the directory the client requested is outside of the root send an access denied message
+      else{
+        ws.send("{\"response\":\"denyAccess\"}");
+      }
     }
     else if (request.request="upload") {
       let location = __dirname+request.location+"/"+request.name;
@@ -108,12 +113,11 @@ wsServer.on("connection", function(ws) {
       catch(e){
 
       }
-
     }
-    //If the directory the client requested is outside of the root send an access denied message
     else{
-      ws.send("{\"response\":\"denyAccess\"}");
+      ws.send("{\"response\":\"invalidRequest\"}");
     }
+
   }
 
   });

@@ -20,6 +20,9 @@ ws.onmessage = function(m) {
   if(response.response=="denyAccess"){
     alert("You do not have permission to access that directory!");
   }
+  else if(response.response=="invalidRequest"){
+    alert("Invalid message received by the server!");
+  }
   //Set the browser div to the retreived directory JSON converted to an HTML table
   else{
   let browser = document.getElementById("browser");
