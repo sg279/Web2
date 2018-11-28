@@ -16,12 +16,13 @@
   <hr>
   <div id="browser"></div>
   <hr>
-  <input type="checkbox" checked onchange="toggle(this)" value = "type">type
-  <input type="checkbox" checked onchange="toggle(this)" value = "size">size
-  <input type="checkbox" checked onchange="toggle(this)" value = "atime">atime
-  <input type="checkbox" checked onchange="toggle(this)" value = "mtime">mtime
-  <input type="checkbox" checked onchange="toggle(this)" value = "ctime">ctime
-  <input type="checkbox" checked onchange="toggle(this)" value = "birthtime">birthtime
+  <!-- The checkboxes that allow the user to hide certain columns -->
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "type">type
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "size">size
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "atime">atime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "mtime">mtime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "ctime">ctime
+  <input type="checkbox" checked onchange="setDisplay(this)" value = "birthtime">birthtime
 </body>
 
 </html>

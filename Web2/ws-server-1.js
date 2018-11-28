@@ -40,8 +40,6 @@ function serveApp(request, response) {
               + ":"
               + request.socket.remotePort
               + " " + filename);
-
-
   // read file
   fs.readFile(filename, (error, file) => {
 
@@ -73,7 +71,6 @@ function serveApp(request, response) {
 
 let httpServer = http.createServer(serveApp).listen(G_port, os.hostname());
 let wsServer = new ws.Server({server: httpServer});
-let wsList = []; // all connected clients
 
 const G_file_types = {
   "css" : "text/css",
@@ -85,37 +82,38 @@ const G_file_types = {
 
 wsServer.on("connection", function(ws) {
 
-  wsList.push(ws);
+  //When a websocket connection is made, send the root directory to the client as a JSON object
   let startDir = __dirname+root;
   let dirInfo = dlj.getDirInfo(startDir, displayDir);
   function displayDir(error, dirInfo) {
   let m = dirInfo;
   ws.send("{\"response\":\"dirinfo\",\"info\":"+JSON.stringify(m)+"}")};
 
+
   console.log("-- connection: " + wsList.length);
 
   ws.on("close", function(code, message) {
-    let i = wsList.indexOf(this);
-    wsList[i] = null;
-    for(let n = i; n < wsList.length; ++n) {
-      // close hole in array
-      wsList[n] = wsList[n + 1];
-    }
-    --wsList.length;
     console.log("-- disconnected: " + (i + 1));
   });
 
+//This code handles messages received by the server
   ws.on("message", function(data) {
+    //Write the received message to the console (for debugging)
     console.log(data);
+    //Parse the message to a JSON object
     let request = JSON.parse(data);
+    //If the requested path is located in the root folder do the following
     if(request.dirpath.startsWith(root)){
+      //Add the requested path to the directory's location
       let startDir = __dirname+request.dirpath;
+      //Get the info for the requested directory, parse it to a json object, and set it to the client
       let dirInfo = dlj.getDirInfo(startDir, displayDir);
       function displayDir(error, dirInfo) {
         let m = dirInfo;
         ws.send("{\"response\":\"dirinfo\",\"info\":"+JSON.stringify(m)+"}");
       }
     }
+    //If the directory the client requested is outside of the root send an access denied message
     else{
       ws.send("{\"response\":\"denyAccess\"}");
     }
